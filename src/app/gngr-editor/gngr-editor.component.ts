@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 import 'ace-builds/src-min-noconflict/theme-monokai';
 import 'brace';
@@ -28,7 +29,8 @@ export class GngrEditorComponent implements OnInit {
   private canvasWidth;
   private canvasHeight;
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  private hasInterference = null;
+  public hasInterference = null;
+  private server = environment.server;
 
   codeExamples = {
     // default: 'var x\nx := 1',
@@ -56,11 +58,11 @@ export class GngrEditorComponent implements OnInit {
   handleAST(code) {
     this.hasInterference = null;
     // const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    this.http.post('http://localhost:28288/api/lint', JSON.stringify(code), { headers: this.headers }).subscribe(lintData => {
+    this.http.post(`http://${this.server}/api/lint`, JSON.stringify(code), { headers: this.headers }).subscribe(lintData => {
       let lintResult = lintData as object[];
       if (lintResult.length === 0) {
         this.handleNI(code);
-        this.http.post('http://localhost:28288/api/ast', JSON.stringify(code), { headers: this.headers }).subscribe(astData => {
+        this.http.post(`http://${this.server}/api/ast`, JSON.stringify(code), { headers: this.headers }).subscribe(astData => {
           let treeNodes = [];
           let treeEdges = [];
           for (let i = 0; i < (astData['graph']['nodes']).length; i++) {
@@ -148,11 +150,11 @@ export class GngrEditorComponent implements OnInit {
   handleDFG(code) {
     this.hasInterference = null;
     // const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    this.http.post('http://localhost:28288/api/lint', JSON.stringify(code), { headers: this.headers }).subscribe(lintData => {
+    this.http.post(`http://${this.server}/api/lint`, JSON.stringify(code), { headers: this.headers }).subscribe(lintData => {
       let lintResult = lintData as object[];
       if (lintResult.length === 0) {
         this.handleNI(code);
-        this.http.post('http://localhost:28288/api/dfg', JSON.stringify(code), { headers: this.headers }).subscribe(dfgData => {
+        this.http.post(`http://${this.server}/api/dfg`, JSON.stringify(code), { headers: this.headers }).subscribe(dfgData => {
           let treeNodes = [];
           let treeEdges = [];
           console.log(dfgData['graph']['edges'])
@@ -232,7 +234,7 @@ export class GngrEditorComponent implements OnInit {
   }
 
   handleNI(code) {
-    this.http.post('http://localhost:28288/api/ni', JSON.stringify(code), { headers: this.headers }).subscribe(niData => {
+    this.http.post(`http://${this.server}/api/ni`, JSON.stringify(code), { headers: this.headers }).subscribe(niData => {
       this.hasInterference = niData['hasInterference'];
     });
   }

@@ -23,38 +23,38 @@
         <mat-tab label="DFG">
             <div fxFlex id="dfgNetwork" #dfgNetwork></div>
         </mat-tab>
-        <mat-tab label="Language">
+        <mat-tab label="Grammar">
             <div class="padding" fxLayout="column">
                 <p>Our grammar is presented in a modified
-                    <a href="https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form" target="_blank">Extended Backus-Naur form (EBNF)</a>.</p>
+                    <a href="https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form" target="_blank">Extended Backus-Naur form (EBNF)</a></p>
                 <pre>
-    <span class="token">char</span>                 =   <span class="code">a</span> | <span class="code">b</span> | <span class="code">c</span> | <span class="code">d</span> | <span class="code">e</span> | <span class="code">f</span> | <span class="code">g</span> | <span class="code">h</span> | <span class="code">i</span> | <span class="code">j</span> | <span class="code">k</span> | <span class="code">l</span>
-                               | <span class="code">m</span> | <span class="code">n</span> | <span class="code">o</span> | <span class="code">p</span> | <span class="code">q</span> | <span class="code">r</span> | <span class="code">s</span> | <span class="code">t</span> | <span class="code">u</span> | <span class="code">v</span> | <span class="code">w</span>
-                               | <span class="code">x</span> | <span class="code">y</span> | <span class="code">z</span>
+    <span class="token">char</span>                     =   <span class="code">a</span> | <span class="code">b</span> | <span class="code">c</span> | <span class="code">d</span> | <span class="code">e</span> | <span class="code">f</span> | <span class="code">g</span> | <span class="code">h</span> | <span class="code">i</span> | <span class="code">j</span> | <span class="code">k</span> | <span class="code">l</span>
+                                   | <span class="code">m</span> | <span class="code">n</span> | <span class="code">o</span> | <span class="code">p</span> | <span class="code">q</span> | <span class="code">r</span> | <span class="code">s</span> | <span class="code">t</span> | <span class="code">u</span> | <span class="code">v</span> | <span class="code">w</span>
+                                   | <span class="code">x</span> | <span class="code">y</span> | <span class="code">z</span>
 
-    <span class="token">ident</span>                =   <span class="token">char</span>, &#123; <span class="token">char</span> &#125;
+    <span class="token">identifier</span>               =   <span class="token">char</span>, &#123; <span class="token">char</span> &#125;
 
-    <span class="token">annotation</span>           =   <span class="code">: @high</span> | <span class="code">: @low</span>
+    <span class="token">annotation</span>               =   <span class="code">: @high</span> | <span class="code">: @low</span>
 
-    <span class="token">variable-declaration</span> =   <span class="code">var</span> <span class="token">ident</span>
+    <span class="token">variable-declaration</span>     =   <span class="code">var</span> <span class="token">identifier</span>
 
-    <span class="token">expression</span>           =   <span class="token">ident</span>
-                         =   <span class="token">expression</span> <span class="code">+</span> <span class="token">expression</span>
-                         =   <span class="token">func-inv</span>
-                         =   <span class="code">read()</span> [ <span class="token">annotation</span> ] 
+    <span class="token">expression</span>               =   <span class="token">identifier</span>
+                             =   <span class="token">expression</span> <span class="code">+</span> <span class="token">expression</span>
+                             =   <span class="token">function-invocation</span>
+                             =   <span class="code">read()</span> [ <span class="token">annotation</span> ] 
 
-    <span class="token">func-declaration</span>     =   <span class="code">def</span> <span class="token">ident</span> <span class="code">(</span> &#123; <span class="token">var-dec</span> <span class="code">,</span> &#125; <span class="code">) &#123;</span> <span class="token">statement-list</span> <span class="code">&#125;</span>
+    <span class="token">function-declaration</span>     =   <span class="code">def</span> <span class="token">identifier</span> <span class="code">(</span> &#123; <span class="token">variable-declaration</span> <span class="code">,</span> &#125; <span class="code">) &#123;</span> <span class="token">statement-list</span> <span class="code">&#125;</span>
 
-    <span class="token">func-invocatgion</span>     =   <span class="token">ident</span> <span class="code">(</span> &#123; <span class="token">expression</span> <span class="code">,</span> &#125; <span class="code">)</span>
+    <span class="token">function-invocation</span>      =   <span class="token">identifier</span> <span class="code">(</span> &#123; <span class="token">expression</span> <span class="code">,</span> &#125; <span class="code">)</span>
 
-    <span class="token">statement</span>            =   <span class="token">func-inv</span>
-                         =   <span class="token">ident</span> <span class="code">:=</span> <span class="token">expression</span>
-                         =   <span class="code">write(</span> <span class="token">expression</span> <span class="code">)</span> [ <span class="token">annotation</span> ]
-                         =   <span class="token">var-dec</span>
+    <span class="token">statement</span>                =   <span class="token">function-invocation</span>
+                             =   <span class="token">identifier</span> <span class="code">:=</span> <span class="token">expression</span>
+                             =   <span class="code">write(</span> <span class="token">expression</span> <span class="code">)</span> [ <span class="token">annotation</span> ]
+                             =   <span class="token">variable-declaration</span>
 
-    <span class="token">statement-list</span>       =   &#123; <span class="token">statement</span> &#125;
+    <span class="token">statement-list</span>           =   &#123; <span class="token">statement</span> &#125;
 
-    <span class="token">program</span>              =   <span class="token">statement-list</span>
+    <span class="token">program</span>                  =   <span class="token">statement-list</span>
                 </pre>
             </div>
         </mat-tab>

@@ -1,3 +1,6 @@
 export const environment = {
-  production: true
+  production: true,
+  server: 'ginger.azurewebsites.net'
 };
+
+//ng build --env=prod
