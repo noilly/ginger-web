@@ -166,16 +166,17 @@ module.exports = "<div class=\"main\" fxLayout=\"row\">\r\n    <div fxFlex=\"50\
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("../../../common/@angular/common/http.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ace_builds_src_min_noconflict_theme_monokai__ = __webpack_require__("../../../../ace-builds/src-min-noconflict/theme-monokai.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ace_builds_src_min_noconflict_theme_monokai___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_ace_builds_src_min_noconflict_theme_monokai__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_brace__ = __webpack_require__("../../../../brace/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_brace___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_brace__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_brace_ext_searchbox__ = __webpack_require__("../../../../brace/ext/searchbox.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_brace_ext_searchbox___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_brace_ext_searchbox__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_brace_mode_gngr__ = __webpack_require__("../../../../brace/mode/gngr.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_brace_mode_gngr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_brace_mode_gngr__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_vis__ = __webpack_require__("../../../../vis/dist/vis.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_vis___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_vis__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__environments_environment__ = __webpack_require__("../../../../../src/environments/environment.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ace_builds_src_min_noconflict_theme_monokai__ = __webpack_require__("../../../../ace-builds/src-min-noconflict/theme-monokai.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ace_builds_src_min_noconflict_theme_monokai___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_ace_builds_src_min_noconflict_theme_monokai__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_brace__ = __webpack_require__("../../../../brace/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_brace___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_brace__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_brace_ext_searchbox__ = __webpack_require__("../../../../brace/ext/searchbox.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_brace_ext_searchbox___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_brace_ext_searchbox__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_brace_mode_gngr__ = __webpack_require__("../../../../brace/mode/gngr.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_brace_mode_gngr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_brace_mode_gngr__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_vis__ = __webpack_require__("../../../../vis/dist/vis.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_vis___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_vis__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GngrEditorComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -191,6 +192,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 // import 'brace/ext/statusbar';
 
 
@@ -201,6 +203,7 @@ var GngrEditorComponent = (function () {
         this.http = http;
         this.headers = new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["b" /* HttpHeaders */]({ 'Content-Type': 'application/json' });
         this.hasInterference = null;
+        this.server = __WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].server;
         this.codeExamples = {
             // default: 'var x\nx := 1',
             assignment: 'var x\nvar y\n\nx := 1\ny := x',
@@ -216,11 +219,11 @@ var GngrEditorComponent = (function () {
         var _this = this;
         this.hasInterference = null;
         // const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-        this.http.post('http://localhost:28288/api/lint', JSON.stringify(code), { headers: this.headers }).subscribe(function (lintData) {
+        this.http.post("http://" + this.server + "/api/lint", JSON.stringify(code), { headers: this.headers }).subscribe(function (lintData) {
             var lintResult = lintData;
             if (lintResult.length === 0) {
                 _this.handleNI(code);
-                _this.http.post('http://localhost:28288/api/ast', JSON.stringify(code), { headers: _this.headers }).subscribe(function (astData) {
+                _this.http.post("http://" + _this.server + "/api/ast", JSON.stringify(code), { headers: _this.headers }).subscribe(function (astData) {
                     var treeNodes = [];
                     var treeEdges = [];
                     for (var i = 0; i < (astData['graph']['nodes']).length; i++) {
@@ -274,7 +277,7 @@ var GngrEditorComponent = (function () {
                         },
                         physics: false
                     };
-                    var network = new __WEBPACK_IMPORTED_MODULE_6_vis__["Network"](container, data, options);
+                    var network = new __WEBPACK_IMPORTED_MODULE_7_vis__["Network"](container, data, options);
                     var viewNodes = treeNodes.filter(function (node) {
                         return node['level'] === 0 || node['level'] === 1;
                     }).map(function (node) {
@@ -307,11 +310,11 @@ var GngrEditorComponent = (function () {
         var _this = this;
         this.hasInterference = null;
         // const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-        this.http.post('http://localhost:28288/api/lint', JSON.stringify(code), { headers: this.headers }).subscribe(function (lintData) {
+        this.http.post("http://" + this.server + "/api/lint", JSON.stringify(code), { headers: this.headers }).subscribe(function (lintData) {
             var lintResult = lintData;
             if (lintResult.length === 0) {
                 _this.handleNI(code);
-                _this.http.post('http://localhost:28288/api/dfg', JSON.stringify(code), { headers: _this.headers }).subscribe(function (dfgData) {
+                _this.http.post("http://" + _this.server + "/api/dfg", JSON.stringify(code), { headers: _this.headers }).subscribe(function (dfgData) {
                     var treeNodes = [];
                     var treeEdges = [];
                     console.log(dfgData['graph']['edges']);
@@ -357,7 +360,7 @@ var GngrEditorComponent = (function () {
                         width: '100%',
                         physics: true
                     };
-                    var network = new __WEBPACK_IMPORTED_MODULE_6_vis__["Network"](container, data, options);
+                    var network = new __WEBPACK_IMPORTED_MODULE_7_vis__["Network"](container, data, options);
                     // let viewNodes = treeNodes.filter(function (node) {
                     //   return node['level'] === 0 || node['level'] === 1;
                     // }).map(function (node) {
@@ -388,7 +391,7 @@ var GngrEditorComponent = (function () {
     };
     GngrEditorComponent.prototype.handleNI = function (code) {
         var _this = this;
-        this.http.post('http://localhost:28288/api/ni', JSON.stringify(code), { headers: this.headers }).subscribe(function (niData) {
+        this.http.post("http://" + this.server + "/api/ni", JSON.stringify(code), { headers: this.headers }).subscribe(function (niData) {
             _this.hasInterference = niData['hasInterference'];
         });
     };
@@ -491,7 +494,8 @@ var _a, _b, _c;
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 // The file contents for the current environment will overwrite these during build.
 var environment = {
-    production: false
+    production: false,
+    server: 'localhost:28288'
 };
 //# sourceMappingURL=environment.js.map
 
