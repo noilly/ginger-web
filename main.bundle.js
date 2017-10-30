@@ -356,7 +356,7 @@ var GngrEditorComponent = (function () {
                             navigationButtons: true
                             // zoomView: false
                         },
-                        height: (window.screen.height) + 'px',
+                        height: (window.screen.height - 64 - 48) + 'px',
                         width: '100%',
                         physics: true
                     };
@@ -370,11 +370,11 @@ var GngrEditorComponent = (function () {
                     //   animation: true,
                     //   nodes: viewNodes
                     // });
-                    network.once('initRedraw', function () {
-                        network.moveTo({
-                            offset: network.getViewPosition()
-                        });
-                    });
+                    // network.once('initRedraw', function () {
+                    //   network.moveTo({
+                    //     offset: network.getViewPosition()
+                    //   });
+                    // });
                     // this.tree = treeNodes[0];
                 });
             }
