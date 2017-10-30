@@ -15,3 +15,7 @@
     color: green;
     font-weight: bold;
 }
+
+.ace-editor {
+    height: 100%;
+}

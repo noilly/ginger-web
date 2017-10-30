@@ -1,4 +1,4 @@
-<div class="main" fxLayout="row">
+<div class="main" fxLayout="column" fxLayout.gt-md="row">
     <div fxFlex="50" fxLayout="column">
         <mat-toolbar>
             <span [style.color]="hasInterference === true ? 'red' : hasInterference === false ? 'green' : ''">{{interferenceText()}}</span>
@@ -14,7 +14,7 @@
             <button mat-button (click)="resendCode()">Analyse</button>
             <!-- <button mat-button (click)="resetCode()" color="warn" mat-raised-button>Reset</button> -->
         </mat-toolbar>
-        <ace-editor fxFill [(text)]="text" #editor [mode]="'gngr'" durationBeforeCallback="1000" (textChanged)="onChange($event)"></ace-editor>
+        <ace-editor class="ace-editor" [(text)]="text" #editor [mode]="'gngr'" durationBeforeCallback="1000" (textChanged)="onChange($event)"></ace-editor>
     </div>
     <mat-tab-group fxFlex="50" dynamicHeight [(selectedIndex)]="selectedTab" (selectedTabChange)="selectedTabChange($event)">
         <mat-tab label="AST">
@@ -32,7 +32,7 @@
                                    | <span class="code">m</span> | <span class="code">n</span> | <span class="code">o</span> | <span class="code">p</span> | <span class="code">q</span> | <span class="code">r</span> | <span class="code">s</span> | <span class="code">t</span> | <span class="code">u</span> | <span class="code">v</span> | <span class="code">w</span>
                                    | <span class="code">x</span> | <span class="code">y</span> | <span class="code">z</span>
 
-    <span class="token">identifier</span>               =   <span class="token">char</span>, &#123; <span class="token">char</span> &#125;
+    <span class="token">identifier</span>               =   <span class="token">char</span> &#123; <span class="token">char</span> &#125;
 
     <span class="token">annotation</span>               =   <span class="code">: @high</span> | <span class="code">: @low</span>
 
