@@ -105,7 +105,7 @@ export class GngrEditorComponent implements OnInit {
               navigationButtons: true
               // zoomView: false
             },
-            height: (window.screen.height) + 'px',
+            height: (window.screen.height - 64 - 48) + 'px',
             width: '100%',
             layout: {
               hierarchical: {
@@ -116,22 +116,22 @@ export class GngrEditorComponent implements OnInit {
             physics: false
           };
           let network = new Network(container, data, options);
-          let viewNodes = treeNodes.filter(function (node) {
-            return node['level'] === 0 || node['level'] === 1;
-          }).map(function (node) {
-            return node['id'];
-          });
+          // let viewNodes = treeNodes.filter(function (node) {
+          //   return node['level'] === 0 || node['level'] === 1;
+          // }).map(function (node) {
+          //   return node['id'];
+          // });
 
-          network.fit({
-            animation: true,
-            nodes: viewNodes
-          });
+          // network.fit({
+          //   animation: true,
+          //   nodes: viewNodes
+          // });
 
-          network.once('initRedraw', function () {
-            network.moveTo({
-              offset: network.getViewPosition()
-            });
-          });
+          // network.once('initRedraw', function () {
+          //   network.moveTo({
+          //     offset: network.getViewPosition()
+          //   });
+          // });
           // this.tree = treeNodes[0];
         });
       } else {
@@ -198,7 +198,7 @@ export class GngrEditorComponent implements OnInit {
               navigationButtons: true
               // zoomView: false
             },
-            height: (window.screen.height) + 'px',
+            height: (window.screen.height - 64 - 48) + 'px',
             width: '100%',
             physics: true
           };
@@ -214,11 +214,11 @@ export class GngrEditorComponent implements OnInit {
           //   nodes: viewNodes
           // });
 
-          network.once('initRedraw', function () {
-            network.moveTo({
-              offset: network.getViewPosition()
-            });
-          });
+          // network.once('initRedraw', function () {
+          //   network.moveTo({
+          //     offset: network.getViewPosition()
+          //   });
+          // });
           // this.tree = treeNodes[0];
         });
       } else {

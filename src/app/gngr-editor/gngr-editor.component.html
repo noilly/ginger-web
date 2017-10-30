@@ -16,7 +16,7 @@
         </mat-toolbar>
         <ace-editor class="ace-editor" [(text)]="text" #editor [mode]="'gngr'" durationBeforeCallback="1000" (textChanged)="onChange($event)"></ace-editor>
     </div>
-    <mat-tab-group fxFlex="50" dynamicHeight [(selectedIndex)]="selectedTab" (selectedTabChange)="selectedTabChange($event)">
+    <mat-tab-group fxFlex="50" dynamicHeight [(selectedIndex)]="selectedTab" (selectedTabChange)="selectedTabChange($event)" color="accent">
         <mat-tab label="AST">
             <div fxFlex id="astNetwork" #astNetwork></div>
         </mat-tab>
