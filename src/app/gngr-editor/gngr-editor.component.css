@@ -1,0 +1,17 @@
+.mat-tab-body-wrapper {
+    height: 100%;
+}
+
+.main {
+    height: calc(100% - 128px);
+}
+
+.code {
+    color: blue;
+    font-weight: bold;
+}
+
+.token {
+    color: green;
+    font-weight: bold;
+}
