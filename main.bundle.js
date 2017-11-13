@@ -122,8 +122,9 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_4__angular_material__["a" /* MatButtonModule */],
             __WEBPACK_IMPORTED_MODULE_4__angular_material__["b" /* MatIconModule */],
             __WEBPACK_IMPORTED_MODULE_4__angular_material__["c" /* MatMenuModule */],
-            __WEBPACK_IMPORTED_MODULE_4__angular_material__["d" /* MatTabsModule */],
-            __WEBPACK_IMPORTED_MODULE_4__angular_material__["e" /* MatToolbarModule */],
+            __WEBPACK_IMPORTED_MODULE_4__angular_material__["d" /* MatSlideToggleModule */],
+            __WEBPACK_IMPORTED_MODULE_4__angular_material__["e" /* MatTabsModule */],
+            __WEBPACK_IMPORTED_MODULE_4__angular_material__["f" /* MatToolbarModule */],
             __WEBPACK_IMPORTED_MODULE_9_ng2_tree__["TreeModule"]
         ],
         providers: [],
@@ -156,7 +157,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/gngr-editor/gngr-editor.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main\" fxLayout=\"column\" fxLayout.gt-md=\"row\">\r\n    <div fxFlex=\"50\" fxLayout=\"column\">\r\n        <mat-toolbar>\r\n            <span [style.color]=\"hasInterference === true ? 'red' : hasInterference === false ? 'green' : ''\">{{interferenceText()}}</span>\r\n            <span fxFlex></span>\r\n            <button mat-button [matMenuTriggerFor]=\"exampleMenu\">\r\n                Examples\r\n            </button>\r\n            <mat-menu #exampleMenu=\"matMenu\">\r\n                <button mat-menu-item (click)=\"setCode(codeExamples['assignment'])\">Assignment</button>\r\n                <button mat-menu-item (click)=\"setCode(codeExamples['funcDec'])\">Function</button>\r\n                <button mat-menu-item (click)=\"setCode(codeExamples['input'])\">Input &amp; Output</button>\r\n            </mat-menu>\r\n            <button mat-button (click)=\"resendCode()\">Analyse</button>\r\n            <!-- <button mat-button (click)=\"resetCode()\" color=\"warn\" mat-raised-button>Reset</button> -->\r\n        </mat-toolbar>\r\n        <ace-editor class=\"ace-editor\" [(text)]=\"text\" #editor [mode]=\"'gngr'\" durationBeforeCallback=\"1000\" (textChanged)=\"onChange($event)\"></ace-editor>\r\n    </div>\r\n    <mat-tab-group fxFlex=\"50\" dynamicHeight [(selectedIndex)]=\"selectedTab\" (selectedTabChange)=\"selectedTabChange($event)\" color=\"accent\">\r\n        <mat-tab label=\"AST\">\r\n            <div fxFlex id=\"astNetwork\" #astNetwork></div>\r\n        </mat-tab>\r\n        <mat-tab label=\"DFG\">\r\n            <div fxFlex id=\"dfgNetwork\" #dfgNetwork></div>\r\n        </mat-tab>\r\n        <mat-tab label=\"Grammar\">\r\n            <div class=\"padding\" fxLayout=\"column\">\r\n                <p>Our grammar is presented in a modified\r\n                    <a href=\"https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form\" target=\"_blank\">Extended Backus-Naur form (EBNF)</a></p>\r\n                <pre>\r\n    <span class=\"token\">char</span>                     =   <span class=\"code\">a</span> | <span class=\"code\">b</span> | <span class=\"code\">c</span> | <span class=\"code\">d</span> | <span class=\"code\">e</span> | <span class=\"code\">f</span> | <span class=\"code\">g</span> | <span class=\"code\">h</span> | <span class=\"code\">i</span> | <span class=\"code\">j</span> | <span class=\"code\">k</span> | <span class=\"code\">l</span>\r\n                                   | <span class=\"code\">m</span> | <span class=\"code\">n</span> | <span class=\"code\">o</span> | <span class=\"code\">p</span> | <span class=\"code\">q</span> | <span class=\"code\">r</span> | <span class=\"code\">s</span> | <span class=\"code\">t</span> | <span class=\"code\">u</span> | <span class=\"code\">v</span> | <span class=\"code\">w</span>\r\n                                   | <span class=\"code\">x</span> | <span class=\"code\">y</span> | <span class=\"code\">z</span>\r\n\r\n    <span class=\"token\">identifier</span>               =   <span class=\"token\">char</span> &#123; <span class=\"token\">char</span> &#125;\r\n\r\n    <span class=\"token\">annotation</span>               =   <span class=\"code\">: @high</span> | <span class=\"code\">: @low</span>\r\n\r\n    <span class=\"token\">variable-declaration</span>     =   <span class=\"code\">var</span> <span class=\"token\">identifier</span>\r\n\r\n    <span class=\"token\">expression</span>               =   <span class=\"token\">identifier</span>\r\n                             =   <span class=\"token\">expression</span> <span class=\"code\">+</span> <span class=\"token\">expression</span>\r\n                             =   <span class=\"token\">function-invocation</span>\r\n                             =   <span class=\"code\">read()</span> [ <span class=\"token\">annotation</span> ] \r\n\r\n    <span class=\"token\">function-declaration</span>     =   <span class=\"code\">def</span> <span class=\"token\">identifier</span> <span class=\"code\">(</span> &#123; <span class=\"token\">variable-declaration</span> <span class=\"code\">,</span> &#125; <span class=\"code\">) &#123;</span> <span class=\"token\">statement-list</span> <span class=\"code\">&#125;</span>\r\n\r\n    <span class=\"token\">function-invocation</span>      =   <span class=\"token\">identifier</span> <span class=\"code\">(</span> &#123; <span class=\"token\">expression</span> <span class=\"code\">,</span> &#125; <span class=\"code\">)</span>\r\n\r\n    <span class=\"token\">statement</span>                =   <span class=\"token\">function-invocation</span>\r\n                             =   <span class=\"token\">identifier</span> <span class=\"code\">:=</span> <span class=\"token\">expression</span>\r\n                             =   <span class=\"code\">write(</span> <span class=\"token\">expression</span> <span class=\"code\">)</span> [ <span class=\"token\">annotation</span> ]\r\n                             =   <span class=\"token\">variable-declaration</span>\r\n                             =   <span class=\"token\">function-declaration</span>\r\n\r\n    <span class=\"token\">statement-list</span>           =   &#123; <span class=\"token\">statement</span> &#125;\r\n\r\n    <span class=\"token\">program</span>                  =   <span class=\"token\">statement-list</span>\r\n                </pre>\r\n            </div>\r\n        </mat-tab>\r\n    </mat-tab-group>\r\n</div>\r\n<!-- <mat-toolbar>\r\n    <span fxFlex></span>\r\n    <span [style.color]=\"hasInterference === true ? 'red' : hasInterference === false ? 'green' : ''\">{{interferenceText()}}</span>\r\n</mat-toolbar> -->"
+module.exports = "<div class=\"main\" fxLayout=\"column\" fxLayout.gt-md=\"row\">\r\n    <div fxFlex=\"50\" fxLayout=\"column\">\r\n        <mat-toolbar>\r\n            <mat-slide-toggle [checked]=\"performClosure\" (change)=\"performClosure = !performClosure\">Perform Closure</mat-slide-toggle>\r\n            <span fxFlex></span>\r\n            <span [style.color]=\"hasInterference === true ? 'red' : hasInterference === false ? 'green' : ''\">{{interferenceText()}}</span>\r\n            <span fxFlex></span>\r\n            <button mat-button (click)=\"resendCode()\">Analyse</button>\r\n            <button mat-button [matMenuTriggerFor]=\"exampleMenu\">\r\n                Examples\r\n            </button>\r\n            <mat-menu #exampleMenu=\"matMenu\">\r\n                <button mat-menu-item (click)=\"setCode(codeExamples['assignment'])\">Assignment</button>\r\n                <button mat-menu-item (click)=\"setCode(codeExamples['funcDec'])\">Function</button>\r\n                <button mat-menu-item (click)=\"setCode(codeExamples['input'])\">Input &amp; Output</button>\r\n                <button mat-menu-item (click)=\"setCode(codeExamples['transClosure'])\">Transitive Closure</button>\r\n                <button mat-menu-item (click)=\"setCode(codeExamples['program'])\">Program</button>\r\n            </mat-menu>\r\n        </mat-toolbar>\r\n        <ace-editor class=\"ace-editor\" [(text)]=\"text\" #editor [mode]=\"'gngr'\" durationBeforeCallback=\"1000\" (textChanged)=\"onChange($event)\"></ace-editor>\r\n    </div>\r\n    <mat-tab-group fxFlex=\"50\" dynamicHeight [(selectedIndex)]=\"selectedTab\" (selectedTabChange)=\"selectedTabChange($event)\" color=\"accent\">\r\n        <mat-tab label=\"AST\">\r\n            <div fxFlex id=\"astNetwork\" #astNetwork></div>\r\n        </mat-tab>\r\n        <mat-tab label=\"DFG\">\r\n            <div fxFlex id=\"dfgNetwork\" #dfgNetwork></div>\r\n        </mat-tab>\r\n        <mat-tab label=\"Grammar\">\r\n            <div class=\"padding\" fxLayout=\"column\">\r\n                <p>Our grammar is presented in a modified\r\n                    <a href=\"https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form\" target=\"_blank\">Extended Backus-Naur form (EBNF)</a></p>\r\n                <pre>\r\n    <span class=\"token\">char</span>                     =   <span class=\"code\">a</span> | <span class=\"code\">b</span> | <span class=\"code\">c</span> | <span class=\"code\">d</span> | <span class=\"code\">e</span> | <span class=\"code\">f</span> | <span class=\"code\">g</span> | <span class=\"code\">h</span> | <span class=\"code\">i</span> | <span class=\"code\">j</span> | <span class=\"code\">k</span> | <span class=\"code\">l</span>\r\n                                   | <span class=\"code\">m</span> | <span class=\"code\">n</span> | <span class=\"code\">o</span> | <span class=\"code\">p</span> | <span class=\"code\">q</span> | <span class=\"code\">r</span> | <span class=\"code\">s</span> | <span class=\"code\">t</span> | <span class=\"code\">u</span> | <span class=\"code\">v</span> | <span class=\"code\">w</span>\r\n                                   | <span class=\"code\">x</span> | <span class=\"code\">y</span> | <span class=\"code\">z</span>\r\n\r\n    <span class=\"token\">identifier</span>               =   <span class=\"token\">char</span> &#123; <span class=\"token\">char</span> &#125;\r\n                             =   <span class=\"token\">identifier</span> <span class=\"code\">.</span> <span class=\"token\">identifier</span>\r\n\r\n    <span class=\"token\">import</span>                   =   <span class=\"code\">import</span> <span class=\"token\">identifier</span>\r\n\r\n    <span class=\"token\">annotation</span>               =   <span class=\"code\">: @high</span> | <span class=\"code\">: @low</span>\r\n\r\n    <span class=\"token\">variable-declaration</span>     =   <span class=\"code\">var</span> <span class=\"token\">identifier</span>\r\n\r\n    <span class=\"token\">expression</span>               =   <span class=\"token\">identifier</span>\r\n                             =   <span class=\"token\">expression</span> <span class=\"code\">+</span> <span class=\"token\">expression</span>\r\n                             =   <span class=\"token\">function-invocation</span>\r\n                             =   <span class=\"code\">read()</span> [ <span class=\"token\">annotation</span> ] \r\n\r\n    <span class=\"token\">function-declaration</span>     =   <span class=\"code\">function</span> <span class=\"token\">identifier</span> <span class=\"code\">(</span> &#123; <span class=\"token\">variable-declaration</span> <span class=\"code\">,</span> &#125; <span class=\"code\">) &#123;</span> <span class=\"token\">statement-list</span> <span class=\"code\">&#125;</span>\r\n\r\n    <span class=\"token\">function-invocation</span>      =   <span class=\"token\">identifier</span> <span class=\"code\">(</span> &#123; <span class=\"token\">expression</span> <span class=\"code\">,</span> &#125; <span class=\"code\">)</span>\r\n\r\n    <span class=\"token\">statement</span>                =   <span class=\"token\">function-invocation</span>\r\n                             =   <span class=\"token\">identifier</span> <span class=\"code\">:=</span> <span class=\"token\">expression</span>\r\n                             =   <span class=\"code\">write(</span> <span class=\"token\">expression</span> <span class=\"code\">)</span> [ <span class=\"token\">annotation</span> ]\r\n                             =   <span class=\"token\">variable-declaration</span>\r\n                             =   <span class=\"token\">function-declaration</span>\r\n\r\n    <span class=\"token\">statement-list</span>           =   &#123; <span class=\"token\">statement</span> &#125;\r\n\r\n    <span class=\"token\">component</span>                =   ( <span class=\"code\">contract</span> | <span class=\"code\">implementation</span> ) <span class=\"token\">identifier</span> <span class=\"code\">&#123;</span> &#123; <span class=\"token\">import</span> &#125; &#123; <span class=\"token\">function-declaration</span> &#125; <span class=\"code\">&#125;</span>\r\n\r\n    <span class=\"token\">program</span>                  =   &#123; <span class=\"token\">component</span> &#125;\r\n                </pre>\r\n            </div>\r\n        </mat-tab>\r\n    </mat-tab-group>\r\n</div>\r\n<!-- <mat-toolbar>\r\n    <span fxFlex></span>\r\n    <span [style.color]=\"hasInterference === true ? 'red' : hasInterference === false ? 'green' : ''\">{{interferenceText()}}</span>\r\n</mat-toolbar> -->"
 
 /***/ }),
 
@@ -167,8 +168,8 @@ module.exports = "<div class=\"main\" fxLayout=\"column\" fxLayout.gt-md=\"row\"
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("../../../common/@angular/common/http.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__environments_environment__ = __webpack_require__("../../../../../src/environments/environment.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ace_builds_src_min_noconflict_theme_monokai__ = __webpack_require__("../../../../ace-builds/src-min-noconflict/theme-monokai.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ace_builds_src_min_noconflict_theme_monokai___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_ace_builds_src_min_noconflict_theme_monokai__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ace_builds_src_min_noconflict_theme_twilight__ = __webpack_require__("../../../../ace-builds/src-min-noconflict/theme-twilight.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ace_builds_src_min_noconflict_theme_twilight___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_ace_builds_src_min_noconflict_theme_twilight__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_brace__ = __webpack_require__("../../../../brace/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_brace___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_brace__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_brace_ext_searchbox__ = __webpack_require__("../../../../brace/ext/searchbox.js");
@@ -204,11 +205,14 @@ var GngrEditorComponent = (function () {
         this.headers = new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["b" /* HttpHeaders */]({ 'Content-Type': 'application/json' });
         this.hasInterference = null;
         this.server = __WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].server;
+        this.performClosure = false;
         this.codeExamples = {
             // default: 'var x\nx := 1',
             assignment: 'var x\nvar y\n\nx := 1\ny := x',
-            funcDec: 'var y\n\ndef foo(var x) {\n\treturn x\n}\n\ny := foo(1)',
-            input: 'var x\nx := read(): @high\n\nwrite(x): @low'
+            funcDec: 'var y\n\nfunction foo(var x) {\n\treturn x\n}\n\ny := foo(1)',
+            input: 'var x\nx := read(): @high\n\nwrite(x): @low',
+            transClosure: 'var x\nvar y\n\nfunction foo() {\n\treturn 1\n}\n\nx := foo()\ny := x',
+            program: 'contract bar {\n\n}\n\ncontract app {\n\timport bar\n\n\tfunction main() {\n\n\t}\n}'
         };
         this.selectedTab = 0;
         this.text = '';
@@ -271,6 +275,7 @@ var GngrEditorComponent = (function () {
                         width: '100%',
                         layout: {
                             hierarchical: {
+                                levelSeparation: 100,
                                 parentCentralization: false,
                                 direction: 'UD'
                             }
@@ -314,11 +319,9 @@ var GngrEditorComponent = (function () {
             var lintResult = lintData;
             if (lintResult.length === 0) {
                 _this.handleNI(code);
-                _this.http.post("http://" + _this.server + "/api/dfg", JSON.stringify(code), { headers: _this.headers }).subscribe(function (dfgData) {
+                _this.http.post("http://" + _this.server + "/api/dfg?performClosure=" + _this.performClosure, JSON.stringify(code), { headers: _this.headers }).subscribe(function (dfgData) {
                     var treeNodes = [];
                     var treeEdges = [];
-                    console.log(dfgData['graph']['edges']);
-                    console.log(dfgData['graph']['nodes']);
                     for (var i = 0; i < (dfgData['graph']['nodes']).length; i++) {
                         var nodeData = dfgData['graph']['nodes'][i];
                         treeNodes[i] = {
@@ -406,6 +409,7 @@ var GngrEditorComponent = (function () {
         return result;
     };
     GngrEditorComponent.prototype.onChange = function (code) {
+        this.editor.getEditor().getSession().clearAnnotations();
         localStorage.setItem('code', code);
         if (this.selectedTab === 0) {
             this.handleAST(code);
@@ -415,7 +419,7 @@ var GngrEditorComponent = (function () {
         }
     };
     GngrEditorComponent.prototype.ngAfterViewInit = function () {
-        this.editor.setTheme('monokai');
+        this.editor.setTheme('twilight');
         // this.canvasWidth = this.astNetwork.nativeElement.offsetWidth;
         // this.canvasHeight = this.astNetwork.nativeElement.offsetHeight;
         // this.canvasWidth = this.dfgNetwork.nativeElement.offsetWidth;
@@ -488,11 +492,15 @@ var _a, _b, _c;
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return environment; });
+// The file contents for the current environment will overwrite these during build.
+// The build system defaults to the dev environment which uses `environment.ts`, but if you do
+// `ng build --env=prod` then `environment.prod.ts` will be used instead.
+// The list of which env maps to which file can be found in `.angular-cli.json`.
+// The file contents for the current environment will overwrite these during build.
 var environment = {
-    production: true,
-    server: 'ginger.azurewebsites.net'
+    production: false,
+    server: 'localhost:28288'
 };
-//ng build --env=prod 
 //# sourceMappingURL=environment.js.map
 
 /***/ }),
