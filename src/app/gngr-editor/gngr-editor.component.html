@@ -1,8 +1,11 @@
 <div class="main" fxLayout="column" fxLayout.gt-md="row">
     <div fxFlex="50" fxLayout="column">
         <mat-toolbar>
+            <mat-slide-toggle [checked]="performClosure" (change)="performClosure = !performClosure">Perform Closure</mat-slide-toggle>
+            <span fxFlex></span>
             <span [style.color]="hasInterference === true ? 'red' : hasInterference === false ? 'green' : ''">{{interferenceText()}}</span>
             <span fxFlex></span>
+            <button mat-button (click)="resendCode()">Analyse</button>
             <button mat-button [matMenuTriggerFor]="exampleMenu">
                 Examples
             </button>
@@ -10,11 +13,9 @@
                 <button mat-menu-item (click)="setCode(codeExamples['assignment'])">Assignment</button>
                 <button mat-menu-item (click)="setCode(codeExamples['funcDec'])">Function</button>
                 <button mat-menu-item (click)="setCode(codeExamples['input'])">Input &amp; Output</button>
-                <button mat-menu-item (click)="setCode(codeExamples['transClosure'])">Transitive Closure</button>
-                <button mat-menu-item (click)="setCode(codeExamples['program'])">Program</button>
+                <!-- <button mat-menu-item (click)="setCode(codeExamples['transClosure'])">Transitive Closure</button> -->
+                <button mat-menu-item (click)="setCode(codeExamples['components'])">Components</button>
             </mat-menu>
-            <button mat-button (click)="resendCode()">Analyse</button>
-            <!-- <button mat-button (click)="resetCode()" color="warn" mat-raised-button>Reset</button> -->
         </mat-toolbar>
         <ace-editor class="ace-editor" [(text)]="text" #editor [mode]="'gngr'" durationBeforeCallback="1000" (textChanged)="onChange($event)"></ace-editor>
     </div>

@@ -2,7 +2,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { MatButtonModule, MatIconModule, MatMenuModule, MatTabsModule, MatToolbarModule } from '@angular/material';
+import { MatButtonModule, MatIconModule, MatMenuModule, MatSlideToggleModule, MatTabsModule, MatToolbarModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AceEditorModule } from 'ng2-ace-editor';
@@ -25,6 +25,7 @@ import { TreeModule } from 'ng2-tree';
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
+    MatSlideToggleModule,
     MatTabsModule,
     MatToolbarModule,
     TreeModule

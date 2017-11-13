@@ -31,14 +31,15 @@ export class GngrEditorComponent implements OnInit {
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   public hasInterference = null;
   private server = environment.server;
+  performClosure = false;
 
   codeExamples = {
     // default: 'var x\nx := 1',
-    assignment: 'var x\nvar y\n\nx := 1\ny := x',
-    funcDec: 'var y\n\nfunction foo(var x) {\n\treturn x\n}\n\ny := foo(1)',
-    input: 'var x\nx := read(): @high\n\nwrite(x): @low',
-    transClosure: 'var x\nvar y\n\nfunction foo() {\n\treturn 1\n}\n\nx := foo()\ny := x',
-    program: 'contract bar {\n\n}\n\ncontract app {\n\timport bar\n\n\tfunction main() {\n\n\t}\n}'
+    assignment: 'implementation app {\n\tfunction main() {\n\t\tvar x\n\t\tx := 1\n\t}\n}',
+    funcDec: 'implementation app {\n\tfunction foo(var y) {\n\t\treturn y\n\t}\n\n\tfunction main() {\n\t\tvar x\n\t\tx := foo(1)\n\t}\n}',
+    input: 'implementation app {\n\tfunction main() {\n\t\twrite(read(): @high): @low\n\t}\n}',
+    // transClosure: 'var x\nvar y\n\nfunction foo() {\n\treturn 1\n}\n\nx := foo()\ny := x',
+    components: 'contract bar {\n\tfunction baz() {\n\t\treturn read()\n\t}\n}\n\ncontract app {\n\timport bar\n\n\tfunction main() {\n\t\twrite(bar.baz())\n\t}\n}'
   };
 
   selectedTab = 0;
@@ -157,11 +158,9 @@ export class GngrEditorComponent implements OnInit {
       let lintResult = lintData as object[];
       if (lintResult.length === 0) {
         this.handleNI(code);
-        this.http.post(`http://${this.server}/api/dfg`, JSON.stringify(code), { headers: this.headers }).subscribe(dfgData => {
+        this.http.post(`http://${this.server}/api/dfg?performClosure=${this.performClosure}`, JSON.stringify(code), { headers: this.headers }).subscribe(dfgData => {
           let treeNodes = [];
           let treeEdges = [];
-          console.log(dfgData['graph']['edges'])
-          console.log(dfgData['graph']['nodes'])
           for (let i = 0; i < (dfgData['graph']['nodes']).length; i++) {
             const nodeData = dfgData['graph']['nodes'][i];
             treeNodes[i] = {
