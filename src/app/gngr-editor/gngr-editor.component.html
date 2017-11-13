@@ -10,6 +10,8 @@
                 <button mat-menu-item (click)="setCode(codeExamples['assignment'])">Assignment</button>
                 <button mat-menu-item (click)="setCode(codeExamples['funcDec'])">Function</button>
                 <button mat-menu-item (click)="setCode(codeExamples['input'])">Input &amp; Output</button>
+                <button mat-menu-item (click)="setCode(codeExamples['transClosure'])">Transitive Closure</button>
+                <button mat-menu-item (click)="setCode(codeExamples['program'])">Program</button>
             </mat-menu>
             <button mat-button (click)="resendCode()">Analyse</button>
             <!-- <button mat-button (click)="resetCode()" color="warn" mat-raised-button>Reset</button> -->
@@ -33,6 +35,9 @@
                                    | <span class="code">x</span> | <span class="code">y</span> | <span class="code">z</span>
 
     <span class="token">identifier</span>               =   <span class="token">char</span> &#123; <span class="token">char</span> &#125;
+                             =   <span class="token">identifier</span> <span class="code">.</span> <span class="token">identifier</span>
+
+    <span class="token">import</span>                   =   <span class="code">import</span> <span class="token">identifier</span>
 
     <span class="token">annotation</span>               =   <span class="code">: @high</span> | <span class="code">: @low</span>
 
@@ -43,7 +48,7 @@
                              =   <span class="token">function-invocation</span>
                              =   <span class="code">read()</span> [ <span class="token">annotation</span> ] 
 
-    <span class="token">function-declaration</span>     =   <span class="code">def</span> <span class="token">identifier</span> <span class="code">(</span> &#123; <span class="token">variable-declaration</span> <span class="code">,</span> &#125; <span class="code">) &#123;</span> <span class="token">statement-list</span> <span class="code">&#125;</span>
+    <span class="token">function-declaration</span>     =   <span class="code">function</span> <span class="token">identifier</span> <span class="code">(</span> &#123; <span class="token">variable-declaration</span> <span class="code">,</span> &#125; <span class="code">) &#123;</span> <span class="token">statement-list</span> <span class="code">&#125;</span>
 
     <span class="token">function-invocation</span>      =   <span class="token">identifier</span> <span class="code">(</span> &#123; <span class="token">expression</span> <span class="code">,</span> &#125; <span class="code">)</span>
 
@@ -55,7 +60,9 @@
 
     <span class="token">statement-list</span>           =   &#123; <span class="token">statement</span> &#125;
 
-    <span class="token">program</span>                  =   <span class="token">statement-list</span>
+    <span class="token">component</span>                =   ( <span class="code">contract</span> | <span class="code">implementation</span> ) <span class="token">identifier</span> <span class="code">&#123;</span> &#123; <span class="token">import</span> &#125; &#123; <span class="token">function-declaration</span> &#125; <span class="code">&#125;</span>
+
+    <span class="token">program</span>                  =   &#123; <span class="token">component</span> &#125;
                 </pre>
             </div>
         </mat-tab>

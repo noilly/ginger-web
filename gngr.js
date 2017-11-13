@@ -10,7 +10,7 @@ ace.define("ace/mode/gngr_highlight_rules",["require","exports","module","ace/li
     // "array|function|overriding|at|tagged|generic|package|task|begin|goto|pragma|terminate|" +
     // "body|private|then|if|procedure|type|case|in|protected|constant|interface|until|" +
     // "|is|raise|use|declare|range|delay|limited|record|when|delta|loop|rem|while|digits|renames|with|do|mod|requeue|xor";
-        var keywords = "def|ref|return";
+        var keywords = "contract|function|implementation|import|return";
     
         var builtinConstants = (
             "high|low"

@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
-import 'ace-builds/src-min-noconflict/theme-monokai';
+import 'ace-builds/src-min-noconflict/theme-twilight';
 import 'brace';
 import 'brace/ext/searchbox';
 // import 'brace/ext/statusbar';
@@ -35,8 +35,10 @@ export class GngrEditorComponent implements OnInit {
   codeExamples = {
     // default: 'var x\nx := 1',
     assignment: 'var x\nvar y\n\nx := 1\ny := x',
-    funcDec: 'var y\n\ndef foo(var x) {\n\treturn x\n}\n\ny := foo(1)',
-    input: 'var x\nx := read(): @high\n\nwrite(x): @low'
+    funcDec: 'var y\n\nfunction foo(var x) {\n\treturn x\n}\n\ny := foo(1)',
+    input: 'var x\nx := read(): @high\n\nwrite(x): @low',
+    transClosure: 'var x\nvar y\n\nfunction foo() {\n\treturn 1\n}\n\nx := foo()\ny := x',
+    program: 'contract bar {\n\n}\n\ncontract app {\n\timport bar\n\n\tfunction main() {\n\n\t}\n}'
   };
 
   selectedTab = 0;
@@ -109,6 +111,7 @@ export class GngrEditorComponent implements OnInit {
             width: '100%',
             layout: {
               hierarchical: {
+                levelSeparation: 100,
                 parentCentralization: false,
                 direction: 'UD'
               }
@@ -250,6 +253,7 @@ export class GngrEditorComponent implements OnInit {
   }
 
   onChange(code) {
+    this.editor.getEditor().getSession().clearAnnotations();
     localStorage.setItem('code', code);
     if (this.selectedTab === 0) {
       this.handleAST(code);
@@ -259,7 +263,7 @@ export class GngrEditorComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.editor.setTheme('monokai');
+    this.editor.setTheme('twilight');
     // this.canvasWidth = this.astNetwork.nativeElement.offsetWidth;
     // this.canvasHeight = this.astNetwork.nativeElement.offsetHeight;
     // this.canvasWidth = this.dfgNetwork.nativeElement.offsetWidth;
