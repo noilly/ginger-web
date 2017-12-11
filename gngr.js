@@ -60,7 +60,7 @@ ace.define("ace/mode/gngr_highlight_rules",["require","exports","module","ace/li
             // },
             {
                 token : "keyword.operator",
-                regex : "\\+|:="
+                regex : "\\+|:=|:"
             },
             {
                 token : "punctuation.operator",
