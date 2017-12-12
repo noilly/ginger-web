@@ -42,7 +42,7 @@ export class GngrEditorComponent implements OnInit {
     components: 'contract bar {\n\tfunction baz() {\n\t\treturn read()\n\t}\n}\n\ncontract app {\n\timport bar\n\n\tfunction main() {\n\t\twrite(bar.baz())\n\t}\n}'
   };
 
-  selectedTab = 0;
+  selectedTab = 1;
 
 
   @ViewChild('astNetwork')
@@ -119,7 +119,7 @@ export class GngrEditorComponent implements OnInit {
             },
             physics: false
           };
-          let network = new Network(container, data, options);
+          this.network = new Network(container, data, options);
           // let viewNodes = treeNodes.filter(function (node) {
           //   return node['level'] === 0 || node['level'] === 1;
           // }).map(function (node) {
@@ -139,7 +139,6 @@ export class GngrEditorComponent implements OnInit {
           // this.tree = treeNodes[0];
         });
       } else {
-
         this.editor.getEditor().getSession().setAnnotations((lintData as Object[]).map(function (error) {
           return {
             row: error['row'],
@@ -204,7 +203,7 @@ export class GngrEditorComponent implements OnInit {
             width: '100%',
             physics: true
           };
-          let network = new Network(container, data, options);
+          this.network = new Network(container, data, options);
           // let viewNodes = treeNodes.filter(function (node) {
           //   return node['level'] === 0 || node['level'] === 1;
           // }).map(function (node) {
@@ -253,6 +252,9 @@ export class GngrEditorComponent implements OnInit {
 
   onChange(code) {
     this.editor.getEditor().getSession().clearAnnotations();
+    if (this.network) {
+      this.network.destroy();
+    }
     localStorage.setItem('code', code);
     if (this.selectedTab === 0) {
       this.handleAST(code);
