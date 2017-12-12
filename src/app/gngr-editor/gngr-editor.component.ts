@@ -42,7 +42,7 @@ export class GngrEditorComponent implements OnInit {
     components: 'contract bar {\n\tfunction baz() {\n\t\treturn read()\n\t}\n}\n\ncontract app {\n\timport bar\n\n\tfunction main() {\n\t\twrite(bar.baz())\n\t}\n}'
   };
 
-  selectedTab = 0;
+  selectedTab = 1;
 
 
   @ViewChild('astNetwork')
